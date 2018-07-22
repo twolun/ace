@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-    - "4"
+    - "8"
 
 install:
     - cleanup() { find node_modules -regextype posix-extended -iregex '.*((test|example|doc|demo)s?|\.(md|ts)|license|idea|coverage|file.txt)$' -exec rm -rf {} \; || echo $?; };
