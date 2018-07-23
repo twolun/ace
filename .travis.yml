@@ -9,7 +9,12 @@ install:
       cmp --silent package.json node_modules/package.json || install;
 
 script:
-    - node node_modules/eslint/bin/eslint "lib/ace/**/*.js"
+    -   base=$(git merge-base origin/HEAD HEAD);
+        if [ "$(git rev-parse HEAD)" == "$base" ]; then
+            node node_modules/eslint/bin/eslint $(git diff --name-only |grep -P '.js$');
+        else
+            node node_modules/eslint/bin/eslint "lib/ace/**/*.js";
+        fi
     - node_modules/.bin/istanbul cover lib/ace/test/all.js
     - node_modules/.bin/codecov
 
